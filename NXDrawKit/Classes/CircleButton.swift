@@ -16,11 +16,11 @@ class CircleButton: UIButton {
     override var isSelected: Bool {
         willSet(selectedValue) {
             super.isSelected = selectedValue
-            let isBright = self.color.isEqual(UIColor.white) || self.color.isEqual(UIColor.clear)
-            let selectedColor = !self.isEnabled ? UIColor.clear : isBright ? UIColor.gray : UIColor.white
-            self.layer.borderColor = self.isSelected ? selectedColor.cgColor : self.color?.cgColor
+            self.layer.borderColor = self.isSelected ? UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0).cgColor : UIColor.white.cgColor
         }
     }
+
+    var borderView = UIView()
     
     override var isEnabled: Bool {
         willSet(enabledValue) {
@@ -50,9 +50,22 @@ class CircleButton: UIButton {
         
         self.layer.cornerRadius = diameter / 2.0
         self.layer.borderColor = color.cgColor
-        self.layer.borderWidth = (diameter > 3) ? 3.0 : diameter / 3.0
+        if diameter > 12 {
+            self.layer.borderWidth = 6.0
+            self.addSubview(borderView)
+            borderView.layer.borderWidth = 1.0
+            borderView.frame = CGRect(x: 6.0, y: 6.0, width: diameter - 12, height: diameter - 12)
+            borderView.center = CGPoint(x: self.center.x, y: self.center.y)
+            borderView.layer.cornerRadius = borderView.frame.height / 2
+            borderView.layer.borderColor = UIColor(rgb: 0xeeeeee).cgColor
+            borderView.isUserInteractionEnabled = false
+        } else {
+            self.layer.borderWidth = diameter / 3
+        }
+        self.layer.borderWidth = (diameter > 12) ? 6.0 : diameter / 3
+        self.layer.borderColor = UIColor.white.cgColor
         self.backgroundColor = color.withAlphaComponent(opacity)
-        
+
         if self.color.isEqual(UIColor.clear) {
             self.setBackgroundImage(self.image("icon_eraser"), for: UIControl.State())
         }

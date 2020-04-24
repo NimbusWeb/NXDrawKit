@@ -60,7 +60,7 @@ open class Palette: UIView {
     }
     
     @objc open func setup() {
-        self.backgroundColor = UIColor(red: 0.22, green: 0.22, blue: 0.21, alpha: 1.0)
+        self.backgroundColor = UIColor(red: 239/255, green: 240/255, blue: 242/255, alpha: 1.0)
         self.setupColorView()
         self.setupAlphaView()
         self.setupWidthView()
@@ -136,7 +136,7 @@ open class Palette: UIView {
         self.widthPaletteView = view
         
         var button: CircleButton?
-        var lastY: CGFloat = 4
+        var lastY: CGFloat = 0
         for index in 1...4 {
             let buttonDiameter = self.brushWidth(index)
             button = CircleButton(diameter: buttonDiameter, color: UIColor.black, opacity: 1)
@@ -180,7 +180,7 @@ open class Palette: UIView {
         let shouldEnable = !self.brush.color.isEqual(UIColor.clear)
 
         self.resetButtonSelected(self.colorButtonList, button: button)
-        self.updateColorOfButtons(self.widthButtonList, color: button.color!)
+        //self.updateColorOfButtons(self.widthButtonList, color: button.color!)
         self.updateColorOfButtons(self.alphaButtonList, color: button.color!, enable: shouldEnable)
         
         self.delegate?.didChangeBrushColor?(self.brush.color)
@@ -224,29 +224,29 @@ open class Palette: UIView {
     private func colorWithTag(_ tag: NSInteger) -> UIColor {
         switch(tag) {
             case 1:
-                return UIColor.black
+                return UIColor(rgb: 0x000000)
             case 2:
-                return UIColor.darkGray
+                return UIColor(rgb: 0x555555)
             case 3:
-                return UIColor.gray
-            case 4:
-                return UIColor.white
+                return UIColor(rgb: 0xAAAAAA)
+            case 4:                
+                return UIColor(rgb: 0xFFFFFF)
             case 5:
-                return UIColor(red: 0.8, green: 0.2, blue: 0.2, alpha: 1.0)
+                return UIColor(rgb: 0x42A5F5)
             case 6:
-                return UIColor.orange
+                return UIColor(rgb: 0x009FB7)
             case 7:
-                return UIColor.green
+                return UIColor(rgb: 0xB39DDB)
             case 8:
-                return UIColor(red: 0.15, green: 0.47, blue: 0.23, alpha: 1.0)
+                return UIColor(rgb: 0x5573A7)
             case 9:
-                return UIColor(red: 0.2, green: 0.3, blue: 1.0, alpha: 1.0)
+                return UIColor(rgb: 0x8BC34A)
             case 10:
-                return UIColor(red: 0.2, green: 0.8, blue: 1.0, alpha: 1.0)
+                return UIColor(rgb: 0xFAC92F)
             case 11:
-                return UIColor(red: 0.62, green: 0.32, blue: 0.17, alpha: 1.0)
+                return UIColor(rgb: 0xFDA639)
             case 12:
-                return UIColor.yellow
+                return UIColor(rgb: 0xED5454)
             default:
                 return UIColor.black
         }
@@ -270,6 +270,21 @@ open class Palette: UIView {
             }
             return width
         }
-        return self.buttonDiameter * (CGFloat(tag) / 4.0)
+        return self.buttonDiameter * (CGFloat(5-tag) / 4.0)
+    }
+}
+
+public extension UIColor {
+
+    convenience init(red: Int, green: Int, blue: Int) {
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+
+    convenience init(rgb: Int) {
+        self.init(
+            red: (rgb >> 16) & 0xFF,
+            green: (rgb >> 8) & 0xFF,
+            blue: rgb & 0xFF
+        )
     }
 }

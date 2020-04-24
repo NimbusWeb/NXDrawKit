@@ -12,12 +12,16 @@ import UIKit
 open class ToolBar: UIView {
     @objc open weak var undoButton: UIButton?
     @objc open weak var redoButton: UIButton?
-    @objc open weak var saveButton: UIButton?
-    @objc open weak var loadButton: UIButton?
+//    @objc open weak var saveButton: UIButton?
+//    @objc open weak var loadButton: UIButton?
     @objc open weak var clearButton: UIButton?
     
     private weak var lineView: UIView?
 
+    public struct Consts {
+        public static let buttonHeight: CGFloat = UIScreen.main.bounds.width / 10.0
+        public static let buttonPadding: CGFloat = UIScreen.main.bounds.width / 25.0
+    }
     
     // MARK: - Initializer
     public init() {
@@ -44,7 +48,7 @@ open class ToolBar: UIView {
 
     // MARK: - Private Methods
     private func setupViews() {
-        self.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
+        self.backgroundColor = UIColor(red: 239/255, green: 240/255, blue: 242/255, alpha: 1.0)
         
         let lineView = UIView()
         lineView.backgroundColor = UIColor(red: 0.18, green: 0.18, blue: 0.18, alpha: 1.0)
@@ -52,7 +56,7 @@ open class ToolBar: UIView {
         self.lineView = lineView
         self.lineView?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         
-        var button: UIButton = self.button("Clear")
+        var button: UIButton = self.button(iconName: "icon_clear")
         self.addSubview(button)
         self.clearButton = button
         
@@ -64,37 +68,38 @@ open class ToolBar: UIView {
         self.addSubview(button)
         self.redoButton = button
         
-        button = self.button("Save")
-        self.addSubview(button)
-        self.saveButton = button
+//        button = self.button("Save")
+//        self.addSubview(button)
+//        self.saveButton = button
         
-        button = self.button(iconName: "icon_camera")
-        self.addSubview(button)
-        self.loadButton = button
+//        button = self.button(iconName: "icon_camera")
+//        self.addSubview(button)
+//        self.loadButton = button
     }
     
     private func setupLayout() {
         self.lineView?.frame = CGRect(x: 0, y: self.y - 1, width: self.width, height: 1)
         
-        self.undoButton?.frame = CGRect(x: 15, y: 0, width: self.height * 0.5, height: self.height * 0.5)
-        self.undoButton?.center = CGPoint(x: (self.undoButton?.center.x)!, y: self.height / 2.0)
+        self.undoButton?.frame = CGRect(x: Consts.buttonPadding, y: 0, width: Consts.buttonHeight, height: Consts.buttonHeight)
+        self.undoButton?.center = CGPoint(x: (self.undoButton?.center.x)!, y: Consts.buttonHeight / 2 + Consts.buttonPadding)
 
-        self.redoButton?.frame = CGRect(x: (self.undoButton?.frame)!.maxX + 20, y: 0, width: self.height * 0.5, height: self.height * 0.5)
-        self.redoButton?.center = CGPoint(x: (self.redoButton?.center.x)!, y: self.height / 2.0)
+        self.redoButton?.frame = CGRect(x: (self.undoButton?.frame)!.maxX + Consts.buttonPadding, y: 0, width: Consts.buttonHeight, height: Consts.buttonHeight)
+        self.redoButton?.center = CGPoint(x: (self.redoButton?.center.x)!, y: Consts.buttonHeight / 2 + Consts.buttonPadding)
 
-        self.saveButton?.frame = CGRect(x: self.width - (self.width * 0.1) - 15, y: 0, width: self.width * 0.1, height: self.width * 0.1)
-        self.saveButton?.center = CGPoint(x: (self.saveButton?.center.x)!, y: self.height / 2.0)
+//        self.saveButton?.frame = CGRect(x: self.width - (self.width * 0.1) - 15, y: 0, width: self.width * 0.1, height: self.width * 0.1)
+//        self.saveButton?.center = CGPoint(x: (self.saveButton?.center.x)!, y: self.height / 2.0)
 
-        self.clearButton?.frame = CGRect(x: (self.saveButton?.frame)!.minX - (self.width * 0.1) - 15, y: 0, width: self.width * 0.1, height: self.width * 0.1)
-        self.clearButton?.center = CGPoint(x: (self.clearButton?.center.x)!, y: self.height / 2.0)
+        self.clearButton?.frame = CGRect(x: Consts.buttonHeight * 5 + Consts.buttonPadding * 8, y: 0, width: Consts.buttonHeight, height: Consts.buttonHeight)
+        self.clearButton?.center = CGPoint(x: (self.clearButton?.center.x)!, y: Consts.buttonHeight / 2 + Consts.buttonPadding)
 
-        self.loadButton?.frame = CGRect(x: 0, y: 0, width: self.width * 0.1, height: self.width * 0.1)
-        self.loadButton?.center = CGPoint(x: self.width / 2.0, y: self.height / 2.0)
+//        self.loadButton?.frame = CGRect(x: 0, y: 0, width: self.width * 0.1, height: self.width * 0.1)
+//        self.loadButton?.center = CGPoint(x: self.width / 2.0, y: self.height / 2.0)
     }
     
     private func button(_ title: String? = nil, iconName: String? = nil) -> UIButton {
         let button = UIButton()
-        button.backgroundColor = UIColor.clear
+        button.layer.cornerRadius = Consts.buttonHeight / 2
+        button.backgroundColor = UIColor.white
         
         if title != nil {
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15 * self.multiflierForDevice())

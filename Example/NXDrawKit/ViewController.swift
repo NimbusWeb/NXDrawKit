@@ -57,7 +57,7 @@ class ViewController: UIViewController {
                                    height: paletteHeight)
 
         
-        let toolBarHeight = paletteHeight * 0.25
+        let toolBarHeight = ToolBar.Consts.buttonHeight + ToolBar.Consts.buttonPadding
         let startY = paletteView.frame.minY - toolBarHeight
         self.toolBar?.frame = CGRect(x: 0, y: startY, width: width, height: toolBarHeight)
         
@@ -83,11 +83,11 @@ class ViewController: UIViewController {
         let toolBar = ToolBar()
         toolBar.undoButton?.addTarget(self, action: #selector(ViewController.onClickUndoButton), for: .touchUpInside)
         toolBar.redoButton?.addTarget(self, action: #selector(ViewController.onClickRedoButton), for: .touchUpInside)
-        toolBar.loadButton?.addTarget(self, action: #selector(ViewController.onClickLoadButton), for: .touchUpInside)
-        toolBar.saveButton?.addTarget(self, action: #selector(ViewController.onClickSaveButton), for: .touchUpInside)
-        toolBar.saveButton?.setTitle("share", for: UIControl.State())   // default title is "Save"
+//        toolBar.loadButton?.addTarget(self, action: #selector(ViewController.onClickLoadButton), for: .touchUpInside)
+//        toolBar.saveButton?.addTarget(self, action: #selector(ViewController.onClickSaveButton), for: .touchUpInside)
+//        toolBar.saveButton?.setTitle("share", for: UIControl.State())   // default title is "Save"
         toolBar.clearButton?.addTarget(self, action: #selector(ViewController.onClickClearButton), for: .touchUpInside)
-        toolBar.loadButton?.isEnabled = true
+//        toolBar.loadButton?.isEnabled = true
         self.view.addSubview(toolBar)
         self.toolBar = toolBar
     }
@@ -106,7 +106,7 @@ class ViewController: UIViewController {
     private func updateToolBarButtonStatus(_ canvas: Canvas) {
         self.toolBar?.undoButton?.isEnabled = canvas.canUndo()
         self.toolBar?.redoButton?.isEnabled = canvas.canRedo()
-        self.toolBar?.saveButton?.isEnabled = canvas.canSave()
+//        self.toolBar?.saveButton?.isEnabled = canvas.canSave()
         self.toolBar?.clearButton?.isEnabled = canvas.canClear()
     }
     
@@ -326,14 +326,14 @@ extension ViewController: PaletteDelegate {
 //    }
     
 
-    // tag can be 1 ... 12
-    func colorWithTag(_ tag: NSInteger) -> UIColor? {
-        if tag == 4 {
-            // if you return clearColor, it will be eraser
-            return UIColor.clear
-        }
-        return nil
-    }
+//    // tag can be 1 ... 12
+//    func colorWithTag(_ tag: NSInteger) -> UIColor? {
+//        if tag == 4 {
+//            // if you return clearColor, it will be eraser
+//            return UIColor.clear
+//        }
+//        return nil
+//    }
     
     // tag can be 1 ... 4
 //    func widthWithTag(tag: NSInteger) -> CGFloat {

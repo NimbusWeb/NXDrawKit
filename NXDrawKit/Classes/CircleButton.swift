@@ -57,7 +57,7 @@ class CircleButton: UIButton {
             borderView.frame = CGRect(x: 6.0, y: 6.0, width: diameter - 12, height: diameter - 12)
             borderView.center = CGPoint(x: self.center.x, y: self.center.y)
             borderView.layer.cornerRadius = borderView.frame.height / 2
-            borderView.layer.borderColor = UIColor(rgb: 0xeeeeee).cgColor
+            borderView.layer.borderColor = UIColor.black.withAlphaComponent(0.07).cgColor
             borderView.isUserInteractionEnabled = false
         } else {
             self.layer.borderWidth = diameter / 3

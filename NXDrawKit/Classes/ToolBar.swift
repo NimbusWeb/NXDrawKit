@@ -16,7 +16,7 @@ open class ToolBar: UIView {
 //    @objc open weak var loadButton: UIButton?
     @objc open weak var clearButton: UIButton?
     
-    private weak var lineView: UIView?
+//    private weak var lineView: UIView?
 
     public struct Consts {
         public static let buttonHeight: CGFloat = UIScreen.main.bounds.width / 10.0
@@ -50,11 +50,11 @@ open class ToolBar: UIView {
     private func setupViews() {
         self.backgroundColor = UIColor(red: 239/255, green: 240/255, blue: 242/255, alpha: 1.0)
         
-        let lineView = UIView()
-        lineView.backgroundColor = UIColor(red: 0.18, green: 0.18, blue: 0.18, alpha: 1.0)
-        self.addSubview(lineView)
-        self.lineView = lineView
-        self.lineView?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+//        let lineView = UIView()
+//        lineView.backgroundColor = UIColor(red: 0.18, green: 0.18, blue: 0.18, alpha: 1.0)
+//        self.addSubview(lineView)
+//        self.lineView = lineView
+//        self.lineView?.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         
         var button: UIButton = self.button(iconName: "icon_clear")
         self.addSubview(button)
@@ -78,7 +78,7 @@ open class ToolBar: UIView {
     }
     
     private func setupLayout() {
-        self.lineView?.frame = CGRect(x: 0, y: self.y - 1, width: self.width, height: 1)
+//        self.lineView?.frame = CGRect(x: 0, y: self.y - 1, width: self.width, height: 1)
         
         self.undoButton?.frame = CGRect(x: Consts.buttonPadding, y: 0, width: Consts.buttonHeight, height: Consts.buttonHeight)
         self.undoButton?.center = CGPoint(x: (self.undoButton?.center.x)!, y: Consts.buttonHeight / 2 + Consts.buttonPadding)
